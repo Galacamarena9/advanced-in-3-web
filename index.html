@@ -1483,7 +1483,7 @@ table.cheat th{background:var(--paper); font-size:11px; text-transform:uppercase
     <button class="btn ghost" style="margin-bottom:10px; width:100%; justify-content:center;" onclick="downloadMyData()">⬇️ Descargar todos mis datos (JSON)</button>
     <button class="btn ghost" style="margin-bottom:10px; width:100%; justify-content:center;" onclick="sendPasswordReset()">🔑 Cambiar contraseña</button>
     <button class="btn" style="width:100%; justify-content:center; background:var(--rose); border-color:var(--rose);" onclick="deleteMyAccount()">🗑️ Eliminar mi cuenta y todos mis datos</button>
-    <p style="font-size:11px; color:var(--ink-soft); margin-top:10px;">Al eliminar tu cuenta, tu progreso y tu perfil se borran de nuestra base de datos. Puedes ejercer este derecho en cualquier momento (art. 17 RGPD, derecho de supresión).</p>
+    <p style="font-size:11px; color:var(--ink-soft); margin-top:10px;">Al eliminar tu cuenta se borran de inmediato y por completo tu progreso, tus escritos, tus envíos, tus repasos, tu perfil y tu cuenta de acceso (email y contraseña). No es reversible. Puedes ejercer este derecho en cualquier momento (art. 17 RGPD, derecho de supresión).</p>
   </div>
   <div class="card" style="max-width:520px; margin-top:16px;">
     <h3 style="font-size:15px; margin-bottom:8px;">Tu plan <span class="badge gold premium-badge" style="display:none;">Premium activo</span></h3>
@@ -5488,14 +5488,20 @@ function downloadMyData(){
   URL.revokeObjectURL(url);
 }
 async function deleteMyAccount(){
-  if(!confirm('Esto borrará permanentemente tu progreso guardado en nuestros servidores. ¿Seguro que quieres continuar?')) return;
-  if(supabaseReady && currentUser){
-    await supabaseClient.from('progress').delete().eq('user_id', currentUser.id);
-    await supabaseClient.from('profiles').delete().eq('id', currentUser.id);
-    alert('Tus datos de progreso se han eliminado de nuestra base de datos. Para eliminar también tu cuenta de acceso (email y contraseña), escríbenos a [EMAIL DE CONTACTO] y la eliminaremos en un máximo de 30 días, según nuestra Política de Privacidad.');
+  if(!confirm('Esto borrará PERMANENTEMENTE tu cuenta y todos tus datos (progreso, escritos, envíos, repasos). No podrás deshacer esta acción. ¿Seguro que quieres continuar?')) return;
+  if(!supabaseReady || !currentUser){ alert('No se pudo procesar la solicitud. Inicia sesión de nuevo e inténtalo otra vez.'); return; }
+  const btn = event && event.target;
+  if(btn){ btn.disabled = true; btn.textContent = 'Eliminando...'; }
+  try{
+    await callEdgeFunction('delete-account', {});
+    alert('Tu cuenta y todos tus datos se han eliminado por completo de nuestros servidores.');
+    localStorage.removeItem(STORAGE_KEY);
     await supabaseClient.auth.signOut();
+    window.location.reload();
+  }catch(e){
+    alert('No se pudo eliminar tu cuenta: ' + e.message);
+    if(btn){ btn.disabled = false; btn.textContent = '🗑️ Eliminar mi cuenta y todos mis datos'; }
   }
-  localStorage.removeItem(STORAGE_KEY);
 }
 
 /* ---------- TEXTO LEGAL: PRIVACIDAD + CONDICIONES ---------- */
@@ -5521,7 +5527,7 @@ function renderLegalContent(){
   <p>Tratamos tus datos para prestarte el servicio contratado (ejecución de un contrato, art. 6.1.b RGPD): crear tu cuenta, guardar tu progreso, permitirte acceder a él desde cualquier dispositivo, y generar la corrección de IA que solicitas expresamente al pulsar los botones correspondientes. Si en el futuro te enviamos comunicaciones comerciales, será solo con tu consentimiento expreso y previo (art. 6.1.a RGPD), y podrás retirarlo en cualquier momento.</p>
 
   <h3>4. Conservación de los datos</h3>
-  <p>Conservamos tus datos mientras tu cuenta esté activa. Si solicitas la baja, eliminamos tu progreso de inmediato y tu cuenta de acceso en un plazo máximo de 30 días, salvo obligación legal de conservación superior. Las transcripciones enviadas para corrección de IA se guardan en tu historial de progreso (para mostrarte tu evolución) hasta que elimines tu cuenta.</p>
+  <p>Conservamos tus datos mientras tu cuenta esté activa. Si solicitas la baja desde "Mi cuenta → Eliminar mi cuenta", eliminamos de inmediato y de forma irreversible tu progreso, tus escritos, tus envíos, tus repasos, tu perfil y tu cuenta de acceso, salvo obligación legal de conservación superior (por ejemplo, facturas). Las transcripciones enviadas para corrección de IA se guardan en tu historial de progreso (para mostrarte tu evolución) hasta que elimines tu cuenta.</p>
 
   <h3>5. Encargados del tratamiento y transferencias internacionales</h3>
   <p>Utilizamos los siguientes encargados del tratamiento, con quienes existe la garantía contractual correspondiente (DPA/Cláusulas Contractuales Tipo cuando aplica):</p>
@@ -5536,7 +5542,7 @@ function renderLegalContent(){
   <p>Puedes ejercer en cualquier momento tus derechos de <b>acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad</b> de tus datos:</p>
   <ul>
     <li>Descargando una copia de tus datos desde "Mi cuenta → Descargar mis datos".</li>
-    <li>Eliminando tu cuenta desde "Mi cuenta → Eliminar mi cuenta".</li>
+    <li>Eliminando tu cuenta desde "Mi cuenta → Eliminar mi cuenta" — el borrado es inmediato, completo e irreversible, sin necesidad de escribirnos.</li>
     <li>Cancelando tu suscripción de pago en cualquier momento desde "Mi cuenta → Gestionar o cancelar mi suscripción" — sin necesidad de escribirnos ni de llamar a nadie.</li>
     <li>Escribiendo a <b>[EMAIL DE CONTACTO]</b> para cualquier otra solicitud.</li>
   </ul>
