@@ -1,0 +1,20 @@
+# Vantage English
+
+> Plataforma de preparación para el examen Cambridge C1 Advanced, con
+> corrección de Writing por Inteligencia Artificial, compañero de
+> conversación para practicar Speaking con misiones reales, Listening y
+> Reading con generación infinita de ejercicios, gramática, vocabulario,
+> phrasal verbs y repetición espaciada del error.
+
+Vantage English es una plataforma independiente de preparación y no está
+afiliada, patrocinada ni aprobada por Cambridge University Press &
+Assessment.
+
+## Planes
+- Plan gratuito: acceso limitado a algunas actividades.
+- Plan Premium: 14,99 €/mes, renovación mensual automática, cancelable en
+  cualquier momento. Incluye corrección de Writing por IA, compañero de
+  Speaking con IA, Listening dinámico y simulacros completos.
+
+## Enlaces
+- Web: https://idyllic-jelly-99cd42.netlify.app/

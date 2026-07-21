@@ -3,10 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Advanced in 3 — Tu preparación intensiva C1 Advanced</title>
+<title>Vantage English — Tu preparación intensiva C1 Advanced</title>
+<meta name="description" content="Vantage English es una plataforma de preparación para el examen Cambridge C1 Advanced con corrección de Writing por IA, compañero de conversación para Speaking, Listening y Reading con generación infinita, y repetición espaciada. Plan gratuito y Premium desde 14,99€/mes. Plataforma independiente, no afiliada a Cambridge University Press & Assessment.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://idyllic-jelly-99cd42.netlify.app/">
+<!-- Open Graph / redes sociales y vista previa en asistentes de IA -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vantage English — Preparación C1 Advanced con IA">
+<meta property="og:description" content="Corrección de Writing por IA, compañero de Speaking, Listening y Reading con generación infinita. Plan gratuito y Premium desde 14,99€/mes.">
+<meta property="og:url" content="https://idyllic-jelly-99cd42.netlify.app/">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vantage English — Preparación C1 Advanced con IA">
+<meta name="twitter:description" content="Corrección de Writing por IA, compañero de Speaking, Listening y Reading con generación infinita. Plan gratuito y Premium desde 14,99€/mes.">
+<!-- Datos estructurados: ayuda a buscadores y asistentes de IA a entender
+     qué es el producto, para quién y cuánto cuesta, con hechos concretos
+     en vez de adjetivos -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Vantage English",
+  "applicationCategory": "EducationApplication",
+  "operatingSystem": "Web",
+  "description": "Plataforma de preparación para el examen Cambridge C1 Advanced con corrección de Writing por IA, compañero de conversación para Speaking con misiones reales, Listening y Reading con generación infinita, gramática, vocabulario, phrasal verbs y repetición espaciada.",
+  "url": "https://idyllic-jelly-99cd42.netlify.app/",
+  "inLanguage": "es",
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Estudiantes preparando el examen Cambridge C1 Advanced"
+  },
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Plan gratuito",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    {
+      "@type": "Offer",
+      "name": "Premium",
+      "price": "14.99",
+      "priceCurrency": "EUR",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "14.99",
+        "priceCurrency": "EUR",
+        "billingDuration": "P1M"
+      }
+    }
+  ],
+  "publisher": {
+    "@type": "Person",
+    "name": "Gala Camarena Escrihuela"
+  },
+  "disambiguatingDescription": "Vantage English es una plataforma independiente de preparación y no está afiliada, patrocinada ni aprobada por Cambridge University Press & Assessment."
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#A6812E">
+<link rel="icon" href="/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Vantage English">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 :root{
@@ -29,6 +92,14 @@
   --radius-sm: 11px;
   --sidebar-w: 268px;
   --ease: cubic-bezier(.4,0,.2,1);
+  /* "Modo corrección" — solo para anotaciones de Writing, no reemplaza la
+     paleta general de la app */
+  --pen-red:#A8324A;
+  --pen-red-soft:#C96B7C;
+  --approve:#3C6E4F;
+  --approve-soft:#DBE8DE;
+  --highlight:#F2E08A;
+  --highlight-ink:#7A5D1F;
   color-scheme: light;
 }
 [data-theme="dark"]{
@@ -47,6 +118,12 @@
   --shadow-sm: 0 3px 12px rgba(0,0,0,0.35);
   --shadow: 0 10px 32px rgba(0,0,0,0.45);
   --shadow-lg: 0 22px 55px rgba(0,0,0,0.55);
+  --pen-red:#E08A8F;
+  --pen-red-soft:#C96B7C;
+  --approve:#5FC2A8;
+  --approve-soft:#183630;
+  --highlight:#3A3220;
+  --highlight-ink:#D8B45E;
   color-scheme: dark;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
@@ -117,6 +194,7 @@ section.view.active{display:block;}
 .card{background:var(--paper-card); border:1px solid var(--paper-line); border-radius:var(--radius); padding:22px 24px; box-shadow:var(--shadow-sm); transition:box-shadow .2s var(--ease), transform .2s var(--ease), border-color .2s var(--ease);}
 .grid > .card:hover{box-shadow:var(--shadow); border-color:var(--paper-line);}
 .grid{display:grid; gap:16px;}
+.grid > *{min-width:0;}
 .grid-2{grid-template-columns:repeat(2,1fr);}
 .grid-3{grid-template-columns:repeat(3,1fr);}
 .grid-4{grid-template-columns:repeat(4,1fr);}
@@ -134,7 +212,7 @@ section.view.active{display:block;}
 .hero-info{flex:1; min-width:260px;}
 .hero-info h2{font-size:22px; margin-bottom:8px;}
 .hero-info p{color:var(--ink-soft); font-size:13.8px; margin-bottom:14px; max-width:520px;}
-.datepick{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-soft);}
+.datepick{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-soft); flex-wrap:wrap;}
 .datepick input{border:1px solid var(--paper-line); background:var(--paper); color:var(--ink); border-radius:8px; padding:6px 9px; font-family:inherit; font-size:12.5px;}
 
 .stat-strip{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:22px;}
@@ -229,6 +307,7 @@ section.view.active{display:block;}
 .quiz-score.shown{display:block;}
 
 table.cheat{width:100%; border-collapse:collapse; font-size:12.6px;}
+.table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch;}
 table.cheat th, table.cheat td{border:1px solid var(--paper-line); padding:7px 9px; text-align:left;}
 table.cheat th{background:var(--paper); font-size:11px; text-transform:uppercase; letter-spacing:.04em;}
 
@@ -281,6 +360,100 @@ table.cheat th{background:var(--paper); font-size:11px; text-transform:uppercase
 .onb-skip{display:block; width:100%; text-align:center; margin-top:14px; background:none; border:none; color:var(--ink-soft); font-size:12.5px; text-decoration:underline; cursor:pointer;}
 
 /* ---------- AUTH SCREEN ---------- */
+/* ---------- LANDING PÚBLICA ---------- */
+#landingScreen{background:var(--paper); min-height:100vh;}
+.land-nav{position:sticky; top:0; z-index:20; background:rgba(255,255,255,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--paper-line); padding:14px 24px; display:flex; align-items:center; justify-content:space-between;}
+.land-nav .land-cta{display:flex; gap:10px;}
+.land-wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+.land-hero{padding:64px 24px 40px; display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:center; max-width:1080px; margin:0 auto;}
+.land-hero h1{font-family:'Fraunces',serif; font-weight:700; font-size:clamp(30px,4.2vw,46px); line-height:1.08; margin-bottom:18px;}
+.land-hero .sub{font-size:15.5px; color:var(--ink-soft); line-height:1.65; margin-bottom:26px; max-width:480px;}
+.land-hero .cta-row{display:flex; gap:12px; flex-wrap:wrap;}
+.land-hero .cta-row .btn{padding:12px 22px; font-size:14px;}
+/* Elemento firma: tarjeta de corrección anotada — literal al producto (Writing feedback) */
+.correction-card{background:var(--paper-card); border:1px solid var(--paper-line); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px 22px; position:relative;}
+.correction-card .cc-label{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-soft); margin-bottom:14px;}
+.correction-card .cc-text{font-size:15.5px; line-height:1.9; color:var(--ink);}
+.correction-card .cc-err{color:var(--rose); text-decoration:line-through; text-decoration-color:var(--rose); text-decoration-thickness:1.5px;}
+.correction-card .cc-fix{display:inline-flex; align-items:center; gap:4px; background:var(--gold-soft); color:#7A5D1F; border-radius:6px; padding:1px 7px; font-weight:600; font-size:14px; margin-left:4px;}
+.correction-card .cc-note{margin-top:16px; padding-top:14px; border-top:1px dashed var(--paper-line); font-size:12.5px; color:var(--ink-soft); line-height:1.6;}
+.land-section{padding:52px 24px; max-width:1080px; margin:0 auto;}
+.land-section h2{font-family:'Fraunces',serif; font-weight:700; font-size:clamp(22px,3vw,30px); margin-bottom:10px;}
+.land-section .section-sub{color:var(--ink-soft); font-size:14px; margin-bottom:32px; max-width:560px;}
+.land-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+.land-card{background:var(--paper-card); border:1px solid var(--paper-line); border-radius:var(--radius-sm); padding:20px 18px;}
+.land-card .lc-tag{display:inline-flex; align-items:center; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--gold); font-weight:700; margin-bottom:10px;}
+.land-card .lc-tag::before{content:"✓"; background:var(--gold-soft); color:var(--gold); width:16px; height:16px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:10px;}
+.land-card h3{font-size:15.5px; margin-bottom:6px;}
+.land-card p{font-size:13px; color:var(--ink-soft); line-height:1.55;}
+.land-steps{counter-reset:step; display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+.land-step{position:relative; padding-top:6px;}
+.land-step .num{font-family:'Fraunces',serif; font-weight:700; font-size:26px; color:var(--gold); margin-bottom:8px;}
+.land-step h4{font-size:14px; margin-bottom:5px;}
+.land-step p{font-size:12.5px; color:var(--ink-soft); line-height:1.5;}
+.land-pricing{display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:680px;}
+.price-card{border:1px solid var(--paper-line); border-radius:var(--radius); padding:26px 22px; background:var(--paper-card);}
+.price-card.featured{border-color:var(--gold); box-shadow:var(--shadow);}
+.price-card .pc-plan{font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-soft); margin-bottom:6px;}
+.price-card .pc-price{font-family:'Fraunces',serif; font-weight:700; font-size:32px; margin-bottom:4px;}
+.price-card .pc-price span{font-size:13px; font-weight:500; color:var(--ink-soft);}
+.price-card ul{margin-top:14px; padding-left:0; list-style:none;}
+.price-card li{font-size:12.8px; color:var(--ink-soft); padding:5px 0; display:flex; gap:8px; align-items:flex-start;}
+.price-card li::before{content:"—"; color:var(--gold); flex-shrink:0;}
+.land-disclaimer{font-size:11.5px; color:var(--ink-soft); background:var(--gold-soft); border-radius:10px; padding:14px 16px; line-height:1.6; margin-top:8px;}
+.land-footer{border-top:1px solid var(--paper-line); padding:32px 24px 48px; max-width:1080px; margin:0 auto; display:flex; flex-wrap:wrap; gap:20px; justify-content:space-between; align-items:flex-start;}
+.land-footer .lf-links{display:flex; flex-wrap:wrap; gap:16px;}
+.land-footer a{color:var(--ink-soft); font-size:12.5px; text-decoration:none;}
+.land-footer a:hover{color:var(--gold); text-decoration:underline;}
+#legalModalPublic{position:fixed; inset:0; background:rgba(20,25,46,0.5); z-index:200; display:none; align-items:center; justify-content:center; padding:20px;}
+#legalModalPublic.show{display:flex;}
+#legalModalPublic .lm-box{background:var(--paper); border-radius:var(--radius); max-width:640px; width:100%; max-height:82vh; overflow-y:auto; padding:28px 26px; position:relative;}
+#legalModalPublic .lm-close{position:absolute; top:16px; right:16px; background:var(--paper-card); border:1px solid var(--paper-line); border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:15px;}
+@media (max-width:860px){
+  .land-hero{grid-template-columns:1fr; padding-top:40px;}
+  .land-grid{grid-template-columns:1fr 1fr;}
+  .land-steps{grid-template-columns:1fr 1fr;}
+  .land-pricing{grid-template-columns:1fr;}
+}
+@media (max-width:560px){
+  .land-grid{grid-template-columns:1fr;}
+  .land-steps{grid-template-columns:1fr;}
+  .land-nav .land-cta .btn.ghost{display:none;}
+}
+
+/* ---------- WRITING · "MODO CORRECCIÓN" (extraído de Essay Clinic) ---------- */
+.wr-rule-box{background:var(--highlight); color:var(--highlight-ink); border-radius:10px; padding:12px 16px; font-size:12.8px; line-height:1.55; margin:14px 0;}
+.wr-rule-box b{font-family:'IBM Plex Mono',monospace;}
+.wr-steps{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:14px 0;}
+@media (max-width:760px){.wr-steps{grid-template-columns:1fr 1fr;}}
+.wr-step{background:var(--paper); border:1px solid var(--paper-line); border-radius:10px; padding:12px 13px;}
+.wr-step .n{font-family:'Fraunces',serif; font-size:12px; color:var(--pen-red); font-weight:700;}
+.wr-step .t{font-weight:600; font-size:12.8px; margin:3px 0 3px;}
+.wr-step .d{font-size:11.5px; color:var(--ink-soft); line-height:1.45;}
+.wr-chip-row{display:flex; flex-wrap:wrap; gap:7px; margin:10px 0;}
+.wr-chip{background:var(--approve-soft); color:var(--approve); border-radius:9px; padding:6px 11px; font-size:12px; font-family:'IBM Plex Mono',monospace;}
+.wr-margin-layout{display:grid; grid-template-columns:1fr 220px; gap:20px; margin-top:12px;}
+@media (max-width:760px){.wr-margin-layout{grid-template-columns:1fr;}}
+.wr-essay-text p{margin:0 0 14px; font-size:13.3px; line-height:1.8; font-family:'IBM Plex Mono',monospace;}
+.wr-margin-notes .wr-note{font-family:'Caveat',cursive; color:var(--pen-red); font-size:18px; line-height:1.25; border-left:2px dashed var(--pen-red-soft); padding-left:10px; margin-bottom:22px;}
+.wr-margin-notes .wr-note .tag{display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.05em; margin-top:2px;}
+.wr-flip-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+@media (max-width:760px){.wr-flip-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:520px){.wr-flip-grid{grid-template-columns:1fr;}}
+.wr-flip-card{background:var(--paper-card); border:1px solid var(--paper-line); border-radius:10px; padding:14px 15px; cursor:pointer; min-height:64px; transition:box-shadow .15s;}
+.wr-flip-card:hover{box-shadow:var(--shadow-sm);}
+.wr-flip-card .front{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink);}
+.wr-flip-card .back{display:none; margin-top:9px; padding-top:9px; border-top:1px dashed var(--paper-line); font-family:'Caveat',cursive; font-size:17px; color:var(--pen-red); line-height:1.3;}
+.wr-flip-card.open .back{display:block;}
+.wr-flip-hint{font-size:10px; color:var(--ink-soft); margin-top:5px; font-family:'IBM Plex Mono',monospace;}
+.wr-wordcount.ok{color:var(--approve) !important;}
+.wr-wordcount.bad{color:var(--pen-red) !important;}
+ul.wr-check{list-style:none; margin:10px 0 0; padding:0; font-size:12.5px;}
+ul.wr-check li{padding:4px 0 4px 24px; position:relative; color:var(--ink-soft);}
+ul.wr-check li:before{content:"○"; position:absolute; left:0;}
+ul.wr-check li.pass{color:var(--ink);}
+ul.wr-check li.pass:before{content:"✓"; color:var(--approve); font-weight:700;}
+
 #authScreen{
   position:fixed; inset:0; background:var(--paper); z-index:100;
   display:flex; align-items:center; justify-content:center; padding:20px;
@@ -529,11 +702,115 @@ table.cheat th{background:var(--paper); font-size:11px; text-transform:uppercase
 <body data-theme="light">
 
 <!-- ============ AUTH SCREEN (login / registro) ============ -->
-<div id="authScreen">
+<!-- ============ LANDING PÚBLICA ============ -->
+<div id="landingScreen">
+  <nav class="land-nav">
+    <div class="brand" style="border:none; padding:0;">
+      <div class="brand-seal">V</div>
+      <div class="brand-text"><div class="t1">Vantage English</div><div class="t2">Cambridge C1 · Sprint</div></div>
+    </div>
+    <div class="land-cta">
+      <button class="btn ghost" onclick="enterAuthFromLanding('signin')">Iniciar sesión</button>
+      <button class="btn" onclick="enterAuthFromLanding('signup')">Empezar gratis</button>
+    </div>
+  </nav>
+
+  <section class="land-hero">
+    <div>
+      <div class="eyebrow">Preparación C1 Advanced con IA</div>
+      <h1>Prepara el Cambridge C1 Advanced con correcciones de verdad, no con huecos sueltos.</h1>
+      <p class="sub">Writing corregido en 3 fases por IA, un compañero de conversación para Speaking con misiones reales, Listening y Reading con generación infinita, y repetición espaciada de lo que se te resiste. Empieza con un test de nivel gratuito de 5 minutos.</p>
+      <div class="cta-row">
+        <button class="btn" onclick="enterAuthFromLanding('signup')">Empezar gratis →</button>
+        <button class="btn ghost" onclick="document.getElementById('landPricing').scrollIntoView({behavior:'smooth'})">Ver precio</button>
+      </div>
+    </div>
+    <div class="correction-card">
+      <div class="cc-label">Writing · corrección IA</div>
+      <p class="cc-text">"I am living in Valencia <span class="cc-err">since five years</span><span class="cc-fix">for five years</span> and I have never regretted the decision."</p>
+      <div class="cc-note">"Since" se usa con un punto en el tiempo (since 2021); "for" con una duración (for five years). Error típico de interferencia con el español — muy repetido en el examen real.</div>
+    </div>
+  </section>
+
+  <section class="land-section">
+    <div class="eyebrow">Qué practicas</div>
+    <h2>Las 4 destrezas del examen, más la base que las sostiene</h2>
+    <p class="section-sub">Cada módulo genera ejercicios nuevos cada vez — no memorizas respuestas, entrenas la destreza.</p>
+    <div class="land-grid">
+      <div class="land-card"><div class="lc-tag">Writing</div><h3>Corrección en 3 fases</h3><p>Estructura previa por tipo de texto → corrección categorizada por criterio Cambridge → versión modelo comentada, con comparación entre tu v1 y tu v2.</p></div>
+      <div class="land-card"><div class="lc-tag">Speaking</div><h3>Compañero de conversación IA</h3><p>Las 4 partes reales del examen, más 5 misiones con conversación completa (negociar un sueldo, reclamar en el aeropuerto, defender tu opinión...).</p></div>
+      <div class="land-card"><div class="lc-tag">Listening</div><h3>Generación infinita</h3><p>Las 4 partes del examen, con control de velocidad y acento, y modo dictado — nunca el mismo audio dos veces.</p></div>
+      <div class="land-card"><div class="lc-tag">Reading &amp; Use of English</div><h3>Parts 5 a 8, y las 4 de Use of English</h3><p>Multiple choice, cross-text matching, gapped text, key word transformations — con explicación del porqué en cada corrección.</p></div>
+      <div class="land-card"><div class="lc-tag">Base</div><h3>Gramática, vocabulario y phrasal verbs</h3><p>Tarjetas de patrón con ejemplos y trucos generados por IA, organizadas por lo que realmente se repite en el examen.</p></div>
+      <div class="land-card"><div class="lc-tag">Repetición espaciada</div><h3>Cuaderno de errores</h3><p>Un sistema de repaso (SM-2 simplificado) que te trae de vuelta justo lo que fallaste, en el momento en que estás a punto de olvidarlo.</p></div>
+    </div>
+  </section>
+
+  <section class="land-section">
+    <div class="eyebrow">Cómo funciona</div>
+    <h2>De cero a saber exactamente qué te falta</h2>
+    <div class="land-steps">
+      <div class="land-step"><div class="num">01</div><h4>Test de nivel gratuito</h4><p>5 minutos, con resultado inmediato por destreza.</p></div>
+      <div class="land-step"><div class="num">02</div><h4>Practicas lo que toca</h4><p>El dashboard te dice qué destreza llevas más floja esta semana.</p></div>
+      <div class="land-step"><div class="num">03</div><h4>Corrección con IA</h4><p>Feedback inmediato y explicado, no solo una nota.</p></div>
+      <div class="land-step"><div class="num">04</div><h4>Repites lo que fallas</h4><p>La repetición espaciada trae de vuelta tus errores antes de que se te olviden.</p></div>
+    </div>
+  </section>
+
+  <section class="land-section" id="landPricing">
+    <div class="eyebrow">Precio</div>
+    <h2>Un plan gratuito para probar, Premium cuando quieras ir en serio</h2>
+    <div class="land-pricing">
+      <div class="price-card">
+        <div class="pc-plan">Free</div>
+        <div class="pc-price">0€</div>
+        <ul>
+          <li>Test de nivel completo</li>
+          <li>Acceso limitado a actividades</li>
+          <li>Muestra de Writing y Reading</li>
+        </ul>
+      </div>
+      <div class="price-card featured">
+        <div class="pc-plan">Premium</div>
+        <div class="pc-price">14,99€ <span>/ mes</span></div>
+        <ul>
+          <li>Corrección de Writing por IA sin límite</li>
+          <li>Compañero de Speaking con IA y misiones reales</li>
+          <li>Listening dinámico y simulacros completos</li>
+          <li>Cancelas cuando quieras, sin permanencia</li>
+        </ul>
+      </div>
+    </div>
+    <p class="land-disclaimer">Puntuaciones y correcciones orientativas generadas por IA — no son una evaluación oficial de Cambridge ni garantizan tu nota real en el examen. Vantage English es una plataforma independiente de preparación y no está afiliada, patrocinada ni aprobada por Cambridge University Press &amp; Assessment.</p>
+  </section>
+
+  <footer class="land-footer">
+    <div class="brand" style="border:none; padding:0;">
+      <div class="brand-seal">V</div>
+      <div class="brand-text"><div class="t1">Vantage English</div><div class="t2">gala.camarena@gmail.com</div></div>
+    </div>
+    <div class="lf-links">
+      <a href="#" onclick="showPublicLegal(); return false;">Aviso legal y privacidad</a>
+      <a href="#" onclick="showPublicLegal(); return false;">Términos y condiciones</a>
+      <a href="mailto:gala.camarena@gmail.com">Contacto</a>
+    </div>
+  </footer>
+</div>
+
+<!-- Modal de legal accesible SIN necesidad de iniciar sesión -->
+<div id="legalModalPublic">
+  <div class="lm-box">
+    <button class="lm-close" onclick="document.getElementById('legalModalPublic').classList.remove('show')">✕</button>
+    <div id="legalContentPublic"></div>
+  </div>
+</div>
+
+<div id="authScreen" style="display:none;">
   <div class="auth-card">
+    <a href="#" onclick="backToLanding(); return false;" style="font-size:11.5px; color:var(--ink-soft); text-decoration:none; display:inline-block; margin-bottom:10px;">← Volver</a>
     <div class="brand" style="border:none; padding:0 0 16px; margin-bottom:6px;">
-      <div class="brand-seal">C1</div>
-      <div class="brand-text"><div class="t1">Advanced in 3</div><div class="t2">Cambridge C1 · Sprint</div></div>
+      <div class="brand-seal">V</div>
+      <div class="brand-text"><div class="t1">Vantage English</div><div class="t2">Cambridge C1 · Sprint</div></div>
     </div>
     <h2 id="authTitle">Inicia sesión</h2>
     <p class="auth-sub" id="authSub">Accede a tu cuenta para recuperar tu progreso guardado, se sincroniza en cualquier dispositivo.</p>
@@ -548,6 +825,7 @@ table.cheat th{background:var(--paper); font-size:11px; text-transform:uppercase
     <div class="auth-loading" id="authLoading">Un momento…</div>
     <div class="auth-toggle" id="authToggle">¿No tienes cuenta? <a onclick="switchAuthMode('signup')">Regístrate</a></div>
     <div class="auth-toggle"><a onclick="sendPasswordReset()">He olvidado mi contraseña</a></div>
+    <p style="font-size:10px; color:var(--ink-soft); text-align:center; margin-top:14px; line-height:1.4;">Vantage English es una plataforma independiente de preparación y no está afiliada, patrocinada ni aprobada por Cambridge University Press &amp; Assessment.</p>
   </div>
 </div>
 
@@ -563,7 +841,7 @@ table.cheat th{background:var(--paper); font-size:11px; text-transform:uppercase
     <!-- Paso 1: nombre -->
     <div class="onb-step active" data-step="1">
       <div class="onb-seal">C1</div>
-      <h2>¡Bienvenido/a a Advanced in 3! 👋</h2>
+      <h2>¡Bienvenido/a a Vantage English! 👋</h2>
       <p class="onb-sub">Vamos a crear tu perfil en menos de un minuto para adaptar el plan a ti. Primero, ¿cómo te llamas?</p>
       <input type="text" id="onbName" class="onb-input" placeholder="Tu nombre" autocomplete="given-name">
       <button class="btn onb-next" onclick="onbGo(2)">Empezar →</button>
@@ -614,9 +892,9 @@ table.cheat th{background:var(--paper); font-size:11px; text-transform:uppercase
 <div class="app" id="mainApp" style="display:none;">
 <aside class="sidebar" id="sidebar">
   <div class="brand">
-    <div class="brand-seal">C1</div>
+    <div class="brand-seal">V</div>
     <div class="brand-text">
-      <div class="t1">Advanced in 3</div>
+      <div class="t1">Vantage English</div>
       <div class="t2">Cambridge C1 · Sprint</div>
     </div>
   </div>
@@ -954,13 +1232,13 @@ table.cheat th{background:var(--paper); font-size:11px; text-transform:uppercase
     </div>
     <div class="card">
       <h3 style="font-size:16px; margin-bottom:10px;">Prefijos más comunes</h3>
-      <table class="cheat" id="prefixTable"></table>
+      <div class="table-scroll"><table class="cheat" id="prefixTable"></table></div>
     </div>
   </div>
   <div class="grid grid-2" style="margin-top:16px;">
     <div class="card">
       <h3 style="font-size:16px; margin-bottom:10px;">Sufijos más comunes</h3>
-      <table class="cheat" id="suffixTable"></table>
+      <div class="table-scroll"><table class="cheat" id="suffixTable"></table></div>
     </div>
     <div class="card">
       <h3 style="font-size:16px; margin-bottom:10px;">Patrones típicos de Word Formation (Part 3)</h3>
@@ -1059,7 +1337,7 @@ table.cheat th{background:var(--paper); font-size:11px; text-transform:uppercase
   <div id="writingAccordion"></div>
   <div class="card" style="margin-top:16px;">
     <h3 style="font-size:16px; margin-bottom:10px;">🌟 Expresiones que impresionan al examinador</h3>
-    <div class="grid grid-3" id="writingPhrases"></div>
+    <div class="wr-flip-grid" id="writingPhrases"></div>
   </div>
 
   <div class="card" style="margin-top:16px;">
@@ -1077,18 +1355,23 @@ table.cheat th{background:var(--paper); font-size:11px; text-transform:uppercase
 
     <textarea id="wrEditor" class="wr-editor" placeholder="Empieza a escribir aquí tu redacción..." oninput="updateWrMeta()"></textarea>
     <div class="wr-meta-row">
-      <span>📝 <b id="wrWordCount">0</b> palabras (objetivo: 220-260)</span>
+      <span>📝 <b id="wrWordCount" class="wr-wordcount">0</b> palabras (objetivo: 220-260)</span>
       <span id="wrWordWarning" style="color:var(--gold); display:none;"></span>
       <span style="flex:1;"></span>
       <button class="btn ghost" style="font-size:11px; padding:5px 10px;" onclick="saveWritingDraft()">💾 Guardar borrador</button>
     </div>
+    <div class="pc-section" style="margin-top:10px;"><div class="pc-label">✅ Checklist automática</div><ul class="wr-check" id="wrLiveCheck"></ul></div>
 
     <div id="wrDraftsList" style="margin-top:12px;"></div>
 
-    <div class="upgrade-cta" style="display:flex; align-items:center; gap:10px; margin-top:14px; flex-wrap:wrap;">
-      <button class="btn" onclick="goToView('cuenta')">🔓 Hazte Premium para la corrección completa con IA</button>
+    <div class="writing-upgrade-cta" style="display:none; align-items:center; gap:10px; margin-top:14px; flex-wrap:wrap;">
+      <button class="btn" onclick="goToView('cuenta')">🔓 Hazte Premium para correcciones ilimitadas</button>
     </div>
-    <div style="display:none; margin-top:14px;" class="premium-only-writing">
+    <div class="writing-free-cta" style="display:none; margin-top:14px;">
+      <button class="btn" onclick="requestAiWritingFeedback()">🤖 Corregir con IA — tu corrección gratis de este mes</button>
+      <p style="font-size:11px; color:var(--ink-soft); margin-top:6px;">Plan Free: 1 corrección de Writing con IA al mes. Hazte Premium para correcciones ilimitadas.</p>
+    </div>
+    <div class="premium-only-writing" style="display:none; margin-top:14px;">
       <button class="btn" onclick="requestAiWritingFeedback()">🤖 Corregir con IA (estructura + corrección + versión modelo)</button>
     </div>
     <div id="aiWritingResult" style="margin-top:14px;"></div>
@@ -2361,6 +2644,20 @@ const writingTypes = [
  sample2:"Proposal: Reducing Plastic Waste in Our Local Community\n\nThis proposal aims to outline a set of practical, low-cost measures to significantly reduce single-use plastic waste in our neighbourhood over the next twelve months.\n\nCurrent situation\nLocal beach clean-ups have revealed that the vast majority of collected waste consists of single-use plastic bags, bottles, and food packaging, much of it originating from nearby shops and takeaways that do not offer alternatives.\n\nProposed measures\nOne possible solution would be to work with local businesses to introduce a small discount for customers who bring their own containers or bags, following schemes that have proved successful in neighbouring towns. In addition, installing at least two public water refill stations would reduce dependency on bottled water considerably.\n\nConclusion\nI strongly believe that implementing these measures would make a tangible difference to our community's environmental footprint at minimal cost, and I would welcome the chance to present this proposal to the council in more detail."}
 ];
 const writingPhrasesList = ["Contrary to popular belief,...","It goes without saying that...","This is compounded by the fact that...","Not only... but also...","Against this backdrop,...","There is a growing consensus that...","This raises the question of whether...","On closer inspection,...","All things considered,...","A case in point is...","This is largely attributable to...","With this in mind,..."];
+const writingPhrasesNotes = [
+  "Para abrir un párrafo que contradice una idea muy extendida.",
+  "Para introducir algo obvio, justo antes de matizarlo con un 'but'.",
+  "Para añadir un segundo factor que agrava al primero.",
+  "Para enfatizar dos ideas relacionadas en la misma frase.",
+  "Para conectar el contexto general con tu argumento concreto.",
+  "Alternativa formal a 'people think' — evita repetir 'people'.",
+  "Para introducir una pregunta retórica que vas a desarrollar.",
+  "Para señalar un matiz que no es obvio a primera vista.",
+  "Frase de cierre clásica para arrancar tu conclusión.",
+  "Para introducir un ejemplo concreto que apoya tu punto.",
+  "Explica una causa de forma más formal que 'because'.",
+  "Conecta una idea previa con la acción o conclusión que sigue."
+];
 
 /* ---------- SPEAKING masterclass ---------- */
 const speakingParts = [
@@ -2621,21 +2918,51 @@ function maybeApplyStreakFreeze(){
   }
 }
 /* ---------- PANTALLA "HOY": qué tocaría hacer ahora, sin tener que decidir ---------- */
-const CRITERION_LABELS = {speaking:'Speaking', writing:'Writing', grammar:'Gramática', vocab:'Vocabulario', listening:'Listening', missions:'Misiones reales'};
+const CRITERION_LABELS = {speaking:'Speaking', writing:'Writing', grammar:'Gramática', vocab:'Vocabulario', listening:'Listening', missions:'Misiones reales', reading:'Reading', useofenglish:'Use of English'};
 const CRITERION_ACTIONS = {
   speaking:{view:'speaking', label:'Practica un Speaking (Part 2, 1 min)', icon:'🗣️'},
   writing:{view:'writing', label:'Escribe y corrige un texto con IA', icon:'📝'},
   grammar:{view:'gramatica', label:'Repasa una estructura de gramática', icon:'🧩'},
   vocab:{view:'vocabulario', label:'Aprende una tanda de vocabulario', icon:'📚'},
   listening:{view:'listening', label:'Haz una tarea de Listening', icon:'🎧'},
-  missions:{view:'misiones', label:'Resuelve una misión real', icon:'🎬'}
+  missions:{view:'misiones', label:'Resuelve una misión real', icon:'🎬'},
+  reading:{view:'reading', label:'Haz una tarea de Reading', icon:'📖'},
+  useofenglish:{view:'use-of-english', label:'Practica Use of English', icon:'✍️'}
 };
 function computeWeakestArea(){
   const since = Date.now() - 14*24*60*60*1000;
-  const counts = {speaking:0, writing:0, grammar:0, vocab:0, listening:0, missions:0};
+  const counts = {speaking:0, writing:0, grammar:0, vocab:0, listening:0, missions:0, reading:0, useofenglish:0};
   activityLog.filter(e=>e.ts>since && e.criterion && counts.hasOwnProperty(e.criterion)).forEach(e=> counts[e.criterion]++);
-  let weakest = 'speaking', min = Infinity;
-  Object.keys(counts).forEach(k=>{ if(counts[k] < min){ min = counts[k]; weakest = k; } });
+  const maxCount = Math.max(1, ...Object.values(counts));
+  // Señal 1: falta de práctica reciente (0-1, 1 = nada practicado en 14 días)
+  const practiceGap = {};
+  Object.keys(counts).forEach(k=> practiceGap[k] = 1 - (counts[k]/maxCount));
+
+  // Señal 2: debilidad real medida en el test de nivel (0-1, 1 = nota más baja)
+  // Esta es la señal que faltaba: antes solo mirábamos qué se practicaba
+  // menos, nunca en qué eras realmente peor.
+  const diagWeak = {};
+  if(diagnosticResultData && diagnosticResultData.byArea){
+    const map = {'Gramática':'grammar','Vocabulario':'vocab','Use of English':'useofenglish','Phrasal verbs':'vocab'};
+    const maxScore = diagnosticResultData.maxPerArea || 4;
+    Object.entries(diagnosticResultData.byArea).forEach(([area,score])=>{
+      const key = map[area];
+      if(!key) return;
+      const weak = 1 - (score/maxScore);
+      diagWeak[key] = diagWeak[key]!==undefined ? (diagWeak[key]+weak)/2 : weak;
+    });
+  }
+
+  // Combinamos ambas señales. Donde hay dato real de diagnóstico, pesa el
+  // doble que la simple frecuencia (es nivel medido, no solo hábito). Para
+  // destrezas sin diagnóstico (Speaking, Writing, Listening, Reading,
+  // Misiones) usamos solo la frecuencia de práctica, que sigue siendo mejor
+  // que nada.
+  let weakest = 'speaking', maxPriority = -1;
+  Object.keys(counts).forEach(k=>{
+    const priority = diagWeak[k]!==undefined ? (diagWeak[k]*2 + practiceGap[k]) / 3 : practiceGap[k];
+    if(priority > maxPriority){ maxPriority = priority; weakest = k; }
+  });
   return weakest;
 }
 function renderHoy(){
@@ -3157,19 +3484,40 @@ function jumpToWrEditor(i){
   switchWrType(i);
   document.getElementById('wrEditor').scrollIntoView({behavior:'smooth', block:'start'});
 }
+/* ---------- WRITING · helpers "modo corrección" ---------- */
+function wrParseSteps(structureStr){
+  const chunks = structureStr.split(/\d+\.\s+/).map(s=>s.trim()).filter(Boolean);
+  return chunks.map(c=>{
+    const m = c.match(/^([^(.]+)/);
+    let title = m ? m[1].trim() : c.slice(0,28);
+    title = title.replace(/\.$/,'');
+    return { title, desc: c };
+  });
+}
+function wrParseChips(phrasesStr){
+  return phrasesStr.split('/').map(p=>p.trim()).filter(Boolean);
+}
 function renderWritingAccordion(){
   document.getElementById('writingAccordion').innerHTML = writingTypes.map((w,i)=>{
     const isOpen = wrOpenType === i;
+    const steps = wrParseSteps(w.structure);
+    const chips = wrParseChips(w.phrases);
+    const ruleHighlight = w.mistakes.split(/[;.]/)[0].trim();
     return `<div class="pattern-card ${isOpen?'open':''}">
       <div class="pc-head" onclick="toggleWrTypeCard(${i})">
         <div><div class="pc-title">${w.n}</div><div class="pc-rule">${oneLine(w.structure, 100)}</div></div>
         <span class="pc-chev">▾</span>
       </div>
       <div class="pc-body">
-        <div class="pc-section"><div class="pc-label">📐 Estructura perfecta</div><div style="font-size:12.8px; line-height:1.6;">${w.structure}</div></div>
-        <div class="pc-section"><div class="pc-label">💬 Expresiones útiles</div><div class="pc-structure" style="color:var(--ink);">${w.phrases}</div></div>
+        <div class="wr-rule-box">⚠️ <b>Ojo especialmente con:</b> ${ruleHighlight}.</div>
+        <div class="pc-section"><div class="pc-label">📐 Estructura perfecta, paso a paso</div>
+          <div class="wr-steps">${steps.map((s,si)=>`<div class="wr-step"><div class="n">0${si+1}</div><div class="t">${s.title}</div><div class="d">${s.desc}</div></div>`).join('')}</div>
+        </div>
+        <div class="pc-section"><div class="pc-label">💬 Expresiones útiles</div>
+          <div class="wr-chip-row">${chips.map(c=>`<span class="wr-chip">${c}</span>`).join('')}</div>
+        </div>
         <div class="pc-section"><div class="pc-label">⚠️ Errores que bajan nota</div><div class="pc-mistake">${w.mistakes}</div></div>
-        ${w.sample?`<div class="pc-section"><div class="pc-label">✍️ Modelo de respuesta 1 (nivel C1)</div><div class="pc-example" style="white-space:pre-line;">${w.sample}</div></div>`:''}
+        ${w.sample?`<div class="pc-section"><div class="pc-label">✍️ Modelo de respuesta 1 (nivel C1) — corregido al margen</div>${wrRenderAnnotatedSample(w.sample)}</div>`:''}
         ${w.sample2?`<div class="pc-section"><div class="pc-label">✍️ Modelo de respuesta 2 (nivel C1)</div><div class="pc-example" style="white-space:pre-line;">${w.sample2}</div></div>`:''}
         ${w.prompts?`<div class="pc-section"><div class="pc-label">📝 Enunciados de examen</div><ul style="font-size:12.8px; line-height:1.8; padding-left:18px;">${w.prompts.map(p=>`<li>${p}</li>`).join('')}</ul></div>`:''}
         <button class="btn" style="margin-top:6px;" onclick="jumpToWrEditor(${i})">🎯 Escribir esto ahora</button>
@@ -3177,8 +3525,27 @@ function renderWritingAccordion(){
     </div>`;
   }).join('');
 }
+/* Genera notas al margen genéricas según la posición del párrafo — sirve
+   para essay/email/report/review/proposal, que comparten la misma lógica
+   de apertura → desarrollo → cierre */
+function wrMarginNoteFor(index, total){
+  if(index===0) return 'Apertura: parafrasea el contexto, sin opinión todavía.';
+  if(index===total-1) return 'Cierre: retoma la idea principal y remata con claridad.';
+  return `Desarrollo ${index}: un punto + razón/ejemplo. Busca un conector que no sea "and/but/so".`;
+}
+function wrRenderAnnotatedSample(sampleText){
+  const paras = sampleText.split(/\n+/).filter(p=>p.trim());
+  const essayHtml = paras.map(p=>`<p>${p}</p>`).join('');
+  const notesHtml = paras.map((p,i)=>`<div class="wr-note">${wrMarginNoteFor(i,paras.length)}<span class="tag">párrafo ${i+1}</span></div>`).join('');
+  return `<div class="wr-margin-layout"><div class="wr-essay-text">${essayHtml}</div><div class="wr-margin-notes">${notesHtml}</div></div>`;
+}
 renderWritingAccordion();
-document.getElementById('writingPhrases').innerHTML = writingPhrasesList.map(p=>`<div class="word-card"><div class="e" style="font-size:13px;">"${p}"</div></div>`).join('');
+document.getElementById('writingPhrases').innerHTML = writingPhrasesList.map((p,i)=>`
+  <div class="wr-flip-card" onclick="this.classList.toggle('open')">
+    <div class="front">"${p}"</div>
+    <div class="back">${writingPhrasesNotes[i]}</div>
+    <div class="wr-flip-hint">toca para ver cuándo usarla</div>
+  </div>`).join('');
 
 /* ============================================================
    SPEAKING MASTERCLASS
@@ -3810,8 +4177,8 @@ function finishDiagnostic(){
   }
   let score=0;
   diagnosticQuestions.forEach((q,i)=>{ if(diagAnswers[i]===q.correct) score++; });
-  // Desglose por área (para el radar del dashboard)
-  const areaMap = ['Gramática','Vocabulario','Gramática','Use of English','Vocabulario','Vocabulario','Phrasal verbs','Phrasal verbs','Gramática','Vocabulario','Phrasal verbs','Phrasal verbs'];
+  // Desglose por área (para el radar del dashboard) — 20 preguntas reales
+  const areaMap = ['Gramática','Gramática','Gramática','Use of English','Vocabulario','Vocabulario','Phrasal verbs','Phrasal verbs','Gramática','Vocabulario','Phrasal verbs','Phrasal verbs','Gramática','Gramática','Gramática','Gramática','Gramática','Gramática','Gramática','Vocabulario'];
   const byArea = {}; const maxArea = {};
   diagnosticQuestions.forEach((q,i)=>{
     const a = areaMap[i] || 'General';
@@ -3822,16 +4189,16 @@ function finishDiagnostic(){
   const byAreaNorm = {};
   Object.keys(byArea).forEach(a=>{ byAreaNorm[a] = Math.round((byArea[a]/maxArea[a])*4); });
   let label, advice;
-  if(score<=5){ label='B2 alto'; advice='Aún te faltan automatismos de C1. Esta semana prioriza <b>Gramática C1</b> y <b>Vocabulario por temas</b> antes de lanzarte a simulacros.'; }
-  else if(score<=9){ label='C1 en construcción'; advice='Buena base. Prioriza <b>Use of English</b> y <b>Writing Masterclass</b> para consolidar los patrones que más se repiten.'; }
+  if(score<=8){ label='B2 alto'; advice='Aún te faltan automatismos de C1. Esta semana prioriza <b>Gramática C1</b> y <b>Vocabulario por temas</b> antes de lanzarte a simulacros.'; }
+  else if(score<=14){ label='C1 en construcción'; advice='Buena base. Prioriza <b>Use of English</b> y <b>Writing Masterclass</b> para consolidar los patrones que más se repiten.'; }
   else{ label='C1 sólido'; advice='Vas muy bien encaminado/a. Dedica el grueso del tiempo a <b>simulacros cronometrados</b>, Speaking y Listening para pulir precisión y velocidad.'; }
   diagnosticResultData = { score, label, date: new Date().toLocaleDateString('es-ES'), byArea: byAreaNorm, maxPerArea: 4 };
   saveState();
-  logActivity('🎯', `Test de nivel completado — ${label} (${score}/12)`);
+  logActivity('🎯', `Test de nivel completado — ${label} (${score}/${diagnosticQuestions.length})`);
   document.getElementById('diagnosticQuizBox').innerHTML='';
   const res = document.getElementById('diagnosticResult');
   res.style.display='block';
-  res.innerHTML = `<h3 style="font-size:17px; margin-bottom:8px;">Resultado: ${score}/12 — Nivel estimado: ${label}</h3><p style="font-size:13.5px; line-height:1.7;">${advice}</p><div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;"><button class="btn" onclick="goToView('dashboard')">Ver mi dashboard →</button><button class="btn ghost" onclick="document.getElementById('diagnosticIntro').style.display='block'; document.getElementById('diagnosticResult').style.display='none'; diagAnswers={};">Repetir test</button></div>`;
+  res.innerHTML = `<h3 style="font-size:17px; margin-bottom:8px;">Resultado: ${score}/${diagnosticQuestions.length} — Nivel estimado: ${label}</h3><p style="font-size:13.5px; line-height:1.7;">${advice}</p><div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;"><button class="btn" onclick="goToView('dashboard')">Ver mi dashboard →</button><button class="btn ghost" onclick="document.getElementById('diagnosticIntro').style.display='block'; document.getElementById('diagnosticResult').style.display='none'; diagAnswers={};">Repetir test</button></div>`;
   renderDiagnosticBadge();
 }
 
@@ -4735,14 +5102,30 @@ async function generateWritingStructurePlan(){
     box.innerHTML = `<div class="wr-guide-box" style="border-color:var(--teal);"><b>Tu plan para este tema:</b><ol style="margin:8px 0 0; padding-left:18px; line-height:1.8;">${plan.map(p=>`<li><b>${p.heading || p.title || ''}:</b> ${p.content || p.description || p}</li>`).join('')}</ol>${data.result?.targetLength ? `<div style="margin-top:8px;">📏 Longitud recomendada: ${data.result.targetLength}</div>`:''}</div>`;
   }catch(e){ box.innerHTML = `<p style="color:var(--rose); font-size:12px;">${e.message}</p>`; }
 }
+const wrC1Connectors = ["moreover","however","as a result","for instance","in conclusion","that said","arguably","not only","furthermore","nevertheless","consequently","on the other hand","all things considered","having said that"];
 function updateWrMeta(){
   const text = document.getElementById('wrEditor').value.trim();
   const words = text ? text.split(/\s+/).filter(Boolean).length : 0;
-  document.getElementById('wrWordCount').textContent = words;
+  const wcEl = document.getElementById('wrWordCount');
+  wcEl.textContent = words;
+  wcEl.className = "wr-wordcount " + (words>=220 && words<=260 ? "ok" : (words>0 ? "bad" : ""));
   const warn = document.getElementById('wrWordWarning');
   if(words > 0 && words < 220){ warn.style.display='inline'; warn.textContent = `⚠️ Te faltan ${220-words} palabras para el mínimo`; }
   else if(words > 260){ warn.style.display='inline'; warn.textContent = `⚠️ Te pasas ${words-260} palabras del máximo`; }
   else warn.style.display = 'none';
+
+  const lower = text.toLowerCase();
+  const paras = text ? text.split(/\n+/).filter(p=>p.trim().length>0).length : 0;
+  const foundConns = wrC1Connectors.filter(c=>lower.includes(c));
+  const hasOpinion = /(i (firmly )?believe|on balance|all things considered|taking everything into account|in my opinion)/.test(lower);
+  const checks = [
+    { label: "220–260 palabras", pass: words>=220 && words<=260 },
+    { label: "Al menos 3-4 párrafos diferenciados", pass: paras>=3 },
+    { label: "Al menos 2 conectores C1 variados (no solo and/but/so)", pass: foundConns.length>=2 },
+    { label: "Opinión o conclusión clara", pass: hasOpinion },
+  ];
+  const checkEl = document.getElementById('wrLiveCheck');
+  if(checkEl) checkEl.innerHTML = checks.map(c=>`<li class="${c.pass?'pass':''}">${c.label}</li>`).join('');
 }
 function wrDraftsKey(){ return 'wrDrafts_' + (currentUser?.id || 'anon'); }
 function getWrDrafts(){ try{ return JSON.parse(localStorage.getItem(wrDraftsKey()) || '[]'); }catch(e){ return []; } }
@@ -4927,7 +5310,7 @@ async function generateUoeExercise(type){
     else if(type==='mcq_cloze') renderMcqCloze(result, box);
     else if(type==='word_formation') renderWordFormation(result, box);
     else if(type==='key_word_transformation') renderKwt(result, box);
-    if(typeof logActivity==='function') logActivity('♾️', 'Generaste un ejercicio de Use of English con IA', 5, 'grammar');
+    if(typeof logActivity==='function') logActivity('♾️', 'Generaste un ejercicio de Use of English con IA', 5, 'useofenglish');
   }catch(e){
     box.innerHTML = `<p style="color:var(--rose); font-size:12.5px;">${e.message}</p>`;
   }
@@ -5042,6 +5425,15 @@ async function requestAiWritingFeedback(){
     wrLastOriginalText = text;
     renderAiWritingFeedback(feedback, resultBox, text);
     if(typeof logActivity==='function') logActivity('🤖', 'Recibiste corrección de IA en un Writing', 20, 'writing');
+    if(!isPremium){
+      // El backend ya incrementó el contador real — reflejamos el mismo
+      // cambio aquí para que el botón pase a "Hazte Premium" al instante,
+      // sin esperar a recargar la página.
+      const currentPeriod = new Date().toISOString().slice(0,7);
+      freeWritingUsesThisPeriod = (freeWritingPeriodStored === currentPeriod ? freeWritingUsesThisPeriod : 0) + 1;
+      freeWritingPeriodStored = currentPeriod;
+      updateWritingGateUI();
+    }
   }catch(e){
     resultBox.innerHTML = `<p style="color:var(--rose); font-size:13px;">${e.message}</p>`;
   }
@@ -5189,6 +5581,8 @@ try{
 
 /* ---------- PREMIUM: Stripe + Edge Functions (Supabase + Claude API) ---------- */
 let isPremium = false;
+let freeWritingUsesThisPeriod = 0;
+let freeWritingPeriodStored = null;
 
 // Llama a una Supabase Edge Function pasando el token de sesión del usuario para autenticar.
 async function callEdgeFunction(name, payload){
@@ -5266,16 +5660,42 @@ async function openBillingPortal(){
 function renderPremiumUI(){
   document.querySelectorAll('.premium-badge').forEach(el=> el.style.display = isPremium ? 'inline-flex' : 'none');
   document.querySelectorAll('.upgrade-cta').forEach(el=> el.style.display = isPremium ? 'none' : 'flex');
-  document.querySelectorAll('.premium-only-writing, .premium-only-speaking, .premium-only-uoe, .premium-only-listening, .premium-only-reading').forEach(el=> el.style.display = isPremium ? 'block' : 'none');
+  document.querySelectorAll('.premium-only-speaking, .premium-only-uoe, .premium-only-listening, .premium-only-reading').forEach(el=> el.style.display = isPremium ? 'block' : 'none');
   document.querySelectorAll('.premium-only-cancel').forEach(el=> el.style.display = isPremium ? 'block' : 'none');
+  updateWritingGateUI();
+}
+function updateWritingGateUI(){
+  const upgradeBox = document.querySelector('.writing-upgrade-cta');
+  const freeBox = document.querySelector('.writing-free-cta');
+  const premiumBox = document.querySelector('.premium-only-writing');
+  if(!upgradeBox || !freeBox || !premiumBox) return;
+  if(isPremium){
+    upgradeBox.style.display = 'none';
+    freeBox.style.display = 'none';
+    premiumBox.style.display = 'block';
+    return;
+  }
+  const currentPeriod = new Date().toISOString().slice(0,7);
+  const usedThisPeriod = (freeWritingPeriodStored === currentPeriod) ? freeWritingUsesThisPeriod : 0;
+  if(usedThisPeriod >= 1){
+    upgradeBox.style.display = 'flex';
+    freeBox.style.display = 'none';
+    premiumBox.style.display = 'none';
+  } else {
+    upgradeBox.style.display = 'none';
+    freeBox.style.display = 'block';
+    premiumBox.style.display = 'none';
+  }
 }
 
 // Si venimos de un pago completado en Stripe, refresca el estado premium al volver.
 if(new URLSearchParams(window.location.search).get('checkout')==='success'){
   window.addEventListener('load', async ()=>{
     if(supabaseReady && currentUser){
-      const { data: profile } = await supabaseClient.from('profiles').select('is_premium').eq('id', currentUser.id).maybeSingle();
+      const { data: profile } = await supabaseClient.from('profiles').select('is_premium, free_writing_uses, free_writing_period').eq('id', currentUser.id).maybeSingle();
       isPremium = !!(profile && profile.is_premium);
+      freeWritingUsesThisPeriod = profile?.free_writing_uses ?? 0;
+      freeWritingPeriodStored = profile?.free_writing_period ?? null;
       renderPremiumUI();
     }
   });
@@ -5285,6 +5705,7 @@ if(new URLSearchParams(window.location.search).get('checkout')==='success'){
 window.addEventListener('load', async ()=>{
   if(!supabaseReady){
     // Sin backend configurado todavía: entra en modo local (un único perfil por navegador)
+    document.getElementById('landingScreen').style.display = 'none';
     document.getElementById('authScreen').style.display = 'none';
     document.getElementById('mainApp').style.display = 'flex';
     maybeShowOnboarding();
@@ -5293,14 +5714,15 @@ window.addEventListener('load', async ()=>{
   const { data } = await supabaseClient.auth.getSession();
   if(data && data.session){
     await onLoginSuccess(data.session.user);
-  } else {
-    document.getElementById('authScreen').style.display = 'flex';
   }
+  // Sin sesión: se queda en la landing pública (comportamiento por defecto del HTML),
+  // no forzamos la pantalla de login — el usuario llega a ella pulsando un CTA.
   supabaseClient.auth.onAuthStateChange((event, session)=>{
     if(event==='SIGNED_IN' && session) onLoginSuccess(session.user);
     if(event==='SIGNED_OUT'){
       document.getElementById('mainApp').style.display='none';
-      document.getElementById('authScreen').style.display='flex';
+      document.getElementById('authScreen').style.display='none';
+      document.getElementById('landingScreen').style.display='block';
     }
   });
 });
@@ -5353,6 +5775,20 @@ function personalizeFromProfile(){
 
 /* ---------- FORMULARIO LOGIN / REGISTRO ---------- */
 let authMode = 'signin';
+/* ---------- LANDING PÚBLICA: navegación ---------- */
+function enterAuthFromLanding(mode){
+  document.getElementById('landingScreen').style.display = 'none';
+  document.getElementById('authScreen').style.display = 'flex';
+  switchAuthMode(mode);
+}
+function backToLanding(){
+  document.getElementById('authScreen').style.display = 'none';
+  document.getElementById('landingScreen').style.display = 'block';
+}
+function showPublicLegal(){
+  renderLegalContent('legalContentPublic');
+  document.getElementById('legalModalPublic').classList.add('show');
+}
 function switchAuthMode(mode){
   authMode = mode;
   const isSignup = mode==='signup';
@@ -5403,18 +5839,40 @@ async function sendPasswordReset(){
   const { error } = await supabaseClient.auth.resetPasswordForEmail(email);
   if(error){ showAuthMsg(error.message, 'error'); } else { showAuthMsg('Te hemos enviado un email con instrucciones.', 'ok'); }
 }
+/* ---------- RESETEO DE ESTADO LOCAL — evita que el progreso de una
+   persona se filtre a la siguiente en un ordenador compartido ---------- */
+function resetLocalState(){
+  localStorage.removeItem(STORAGE_KEY);
+  examDate = new Date(); examDate.setDate(examDate.getDate()+21);
+  completedTasks = {};
+  currentWeek = 1;
+  activityLog = [];
+  studyDays = [];
+  frozenDays = [];
+  profile = { onboarded:false, name:'', goal:'', level:'' };
+  diagnosticResultData = null;
+}
 async function signOutUser(){
   if(!supabaseReady) return;
   await supabaseClient.auth.signOut();
+  // Crítico: sin esto, la siguiente persona que use este navegador vería
+  // tu racha, tu diagnóstico y tu actividad hasta generar suficiente
+  // progreso propio para sobreescribirlo.
+  resetLocalState();
+  currentUser = null;
+  isPremium = false;
+  document.getElementById('mainApp').style.display = 'none';
+  document.getElementById('authScreen').style.display = 'none';
+  document.getElementById('landingScreen').style.display = 'block';
 }
 function showLegalFromAuth(which){
-  window.open('', '_blank'); // evita bloqueo de popup en algunos navegadores
-  alert('Puedes leer la Política de Privacidad y las Condiciones completas en la sección "Privacidad y legal" dentro de la app, una vez inicies sesión.');
+  showPublicLegal();
 }
 
 /* ---------- AL INICIAR SESIÓN: CARGAR SOLO LOS DATOS DE ESE USUARIO ---------- */
 async function onLoginSuccess(user){
   currentUser = user;
+  document.getElementById('landingScreen').style.display = 'none';
   document.getElementById('authScreen').style.display = 'none';
   document.getElementById('mainApp').style.display = 'flex';
   document.getElementById('sidebarEmail').textContent = user.email;
@@ -5423,8 +5881,10 @@ async function onLoginSuccess(user){
 
   // Comprueba si el usuario es Premium (tabla profiles, creada por el trigger de nuevo usuario)
   try{
-    const { data: profile } = await supabaseClient.from('profiles').select('is_premium').eq('id', user.id).maybeSingle();
+    const { data: profile } = await supabaseClient.from('profiles').select('is_premium, free_writing_uses, free_writing_period').eq('id', user.id).maybeSingle();
     isPremium = !!(profile && profile.is_premium);
+    freeWritingUsesThisPeriod = profile?.free_writing_uses ?? 0;
+    freeWritingPeriodStored = profile?.free_writing_period ?? null;
   }catch(e){ isPremium = false; }
   renderPremiumUI();
 
@@ -5444,6 +5904,11 @@ async function onLoginSuccess(user){
     if(Array.isArray(d.frozenDays)) frozenDays = d.frozenDays;
     if(Array.isArray(d.studyDays)) studyDays = d.studyDays;
     if(d.profile && typeof d.profile==='object') profile = Object.assign(profile, d.profile);
+  } else {
+    // Sin fila en "progress" para este usuario: es una cuenta nueva o sin
+    // actividad todavía. Reseteamos explícitamente en vez de dejar lo que
+    // hubiera en memoria de una sesión anterior en este mismo navegador.
+    resetLocalState();
   }
   // Re-renderizar todo con los datos ya cargados (locales o de la nube)
   document.getElementById('examDate').valueAsDate = examDate;
@@ -5505,14 +5970,14 @@ async function deleteMyAccount(){
 }
 
 /* ---------- TEXTO LEGAL: PRIVACIDAD + CONDICIONES ---------- */
-function renderLegalContent(){
-  const el = document.getElementById('legalContent');
+function renderLegalContent(targetId){
+  const el = document.getElementById(targetId || 'legalContent');
   if(!el) return;
   el.innerHTML = `
-  <p style="font-size:11.5px; background:var(--gold-soft); padding:10px 12px; border-radius:8px; color:var(--ink);"><b>Nota:</b> este texto es una plantilla orientativa que cubre los puntos exigidos por el RGPD, la LOPDGDD y la LSSI-CE, con los datos identificativos entre corchetes [ ]. No sustituye la revisión de un abogado especializado en protección de datos antes de empezar a operar comercialmente.</p>
+  <p style="font-size:11.5px; background:var(--gold-soft); padding:10px 12px; border-radius:8px; color:var(--ink);"><b>Nota:</b> este texto cubre los puntos exigidos por el RGPD, la LOPDGDD y la LSSI-CE con los datos identificativos reales del responsable. No sustituye la revisión de un abogado especializado en protección de datos y comercio electrónico antes de operar a mayor escala.</p>
 
   <h3>1. Responsable del tratamiento</h3>
-  <p><b>[TU NOMBRE COMPLETO O RAZÓN SOCIAL]</b>, con NIF/DNI [XXXXXXXX], domicilio en [DIRECCIÓN], email de contacto <b>[EMAIL DE CONTACTO]</b>, es responsable del tratamiento de los datos personales que se recogen a través de "Advanced in 3".</p>
+  <p><b>Gala Camarena Escrihuela</b>, con NIF 20945261N, domicilio en Avinguda de la Valldigana 3, 46760 Tavernes de la Valldigna (Valencia, España), email de contacto <b>gala.camarena@gmail.com</b>, es responsable del tratamiento de los datos personales que se recogen a través de "Vantage English".</p>
 
   <h3>2. Qué datos tratamos</h3>
   <ul>
@@ -5544,7 +6009,7 @@ function renderLegalContent(){
     <li>Descargando una copia de tus datos desde "Mi cuenta → Descargar mis datos".</li>
     <li>Eliminando tu cuenta desde "Mi cuenta → Eliminar mi cuenta" — el borrado es inmediato, completo e irreversible, sin necesidad de escribirnos.</li>
     <li>Cancelando tu suscripción de pago en cualquier momento desde "Mi cuenta → Gestionar o cancelar mi suscripción" — sin necesidad de escribirnos ni de llamar a nadie.</li>
-    <li>Escribiendo a <b>[EMAIL DE CONTACTO]</b> para cualquier otra solicitud.</li>
+    <li>Escribiendo a <b>gala.camarena@gmail.com</b> para cualquier otra solicitud.</li>
   </ul>
   <p>Si consideras que no hemos atendido correctamente tu solicitud, puedes presentar una reclamación ante la <b>Agencia Española de Protección de Datos (AEPD)</b> — www.aepd.es.</p>
 
@@ -5563,15 +6028,20 @@ function renderLegalContent(){
   <hr style="border:none; border-top:1px solid var(--paper-line); margin:22px 0;">
 
   <h3>11. Condiciones del Servicio</h3>
-  <p><b>Objeto:</b> "Advanced in 3" es un servicio de preparación para el examen Cambridge C1 Advanced, prestado por [TU NOMBRE / RAZÓN SOCIAL].</p>
-  <p><b>Precio y pago:</b> [DETALLAR PRECIO, PERIODICIDAD Y MÉTODO DE PAGO]. Los pagos se procesan a través de Stripe.</p>
+  <p><b>Objeto:</b> "Vantage English" es un servicio de preparación para el examen Cambridge C1 Advanced, prestado por Gala Camarena Escrihuela (NIF 20945261N). <b>"Vantage English" es una plataforma independiente de preparación y no está afiliada, patrocinada ni aprobada por Cambridge University Press &amp; Assessment.</b> "Cambridge" y "C1 Advanced" se mencionan únicamente con fines descriptivos, para indicar el examen al que este servicio prepara.</p>
+  <p><b>Precio y pago:</b> "Vantage English" ofrece un plan gratuito con funciones limitadas y un plan <b>Premium por 14,99 €/mes</b>, con renovación automática mensual hasta que el usuario cancele. El precio mostrado en el momento de la contratación es el precio final aplicable; cualquier impuesto que corresponda (IVA u otro) se indicará de forma desglosada o incluida en la pantalla de pago de Stripe antes de confirmar la compra. <i>[Nota interna — pendiente de revisión fiscal profesional: confirmar con gestoría el tratamiento de IVA aplicable, alta como autónoma y, si procede, activación de Stripe Tax antes de procesar cobros reales.]</i> Los pagos se procesan a través de Stripe. El usuario puede cancelar la renovación en cualquier momento desde el Portal de Cliente, manteniendo el acceso Premium hasta el final del periodo ya pagado.</p>
   <p><b>Cancelación de la suscripción:</b> puedes cancelar tu suscripción en cualquier momento, con el mismo número de pasos que al contratarla, desde "Mi cuenta → Gestionar o cancelar mi suscripción". La cancelación surte efecto al final del periodo ya pagado; no se realizan reembolsos proporcionales del periodo en curso salvo que la ley aplicable exija lo contrario.</p>
   <p><b>Derecho de desistimiento:</b> al tratarse de contenido digital de acceso inmediato, si aceptas expresamente la casilla de consentimiento en el momento de la compra, <b>renuncias a tu derecho de desistimiento de 14 días</b> (art. 103.m Real Decreto Legislativo 1/2007) desde el momento en que empiezas a usar las funciones Premium. Si no marcas esa casilla, no podrás completar la compra, y de no haberse solicitado esa renuncia expresa en algún flujo de pago, se mantendría el derecho de desistimiento de 14 días conforme a la normativa general de consumidores.</p>
-  <p><b>Propiedad intelectual:</b> todos los contenidos (ejercicios, textos, estructura de la plataforma) son propiedad de [TU NOMBRE / RAZÓN SOCIAL] y se ceden únicamente para uso personal e intransferible del alumno durante la vigencia de su cuenta. Queda prohibida su redistribución o reventa.</p>
+  <p><b>Propiedad intelectual:</b> todos los contenidos (ejercicios, textos, estructura de la plataforma) son propiedad de Gala Camarena Escrihuela y se ceden únicamente para uso personal e intransferible del alumno durante la vigencia de su cuenta. Queda prohibida su redistribución o reventa.</p>
   <p><b>Uso de la cuenta:</b> la cuenta es personal e intransferible. El usuario es responsable de la confidencialidad de su contraseña.</p>
   <p><b>Limitación de responsabilidad:</b> el servicio es una herramienta de apoyo a la preparación del examen. Ni las puntuaciones ni las predicciones generadas por IA (ver sección 10) constituyen una garantía de resultado en la certificación oficial de Cambridge Assessment English, entidad ajena a este servicio.</p>
   <p><b>Legislación aplicable y fuero:</b> estas condiciones se rigen por la legislación española. Para consumidores, será competente el juzgado del domicilio del usuario, conforme a la normativa de protección de consumidores.</p>
   `;
+}
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('/sw.js').catch(err=> console.warn('No se pudo registrar el service worker:', err));
+  });
 }
 </script>
 </body>
